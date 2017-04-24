@@ -1,8 +1,19 @@
-{% extend base.html %}
+{% extends "base.html" %}
 {% block content %}
+<h1>Login</h1>
+<p class="error">{{error}}</p>
 <form method="post">
-    <input type="text" name="username">
-    <input type="password" name="password">
+    <table>
+        <tr>
+            <td><label>Username</label></td>
+            <td><input type="text" name="username"></td>
+        </tr>
+        <tr>
+            <td><label>Password</label></td>
+            <td><input type="password" name="password"></td>
+        </tr>
+    </table>
     <input type="submit" value="login">
 </form>
+<p>Not a user yet? <a href="/signup">signup</a></p>
 {% endblock %}

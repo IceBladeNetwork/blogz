@@ -1,4 +1,7 @@
-import webapp2, jinja2, os, re
+import webapp2
+import jinja2
+import os
+import re
 from google.appengine.ext import db
 from models import Post, User
 import hashutils
@@ -21,7 +24,8 @@ class BlogHandler(webapp2.RequestHandler):
         """
 
         # TODO - filter the query so that only posts by the given user
-        return None
+        user_posts = Post.all().filter("author =", user).order("-created")
+        return user_posts.fetch(limit = limit, offset = offset)
 
     def get_user_by_name(self, username):
         """ Get a user object from the db, based on their username """
@@ -77,6 +81,8 @@ class BlogIndexHandler(BlogHandler):
     def get(self, username=""):
         """ """
 
+        if "admin" == username:
+            self.redirect("https://www.youtube.com/watch?v=FavUpD_IjVY")
         # If request is for a specific page, set page number and offset accordingly
         page = self.request.get("page")
         offset = 0
